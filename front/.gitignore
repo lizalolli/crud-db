@@ -1,0 +1,14 @@
+# Directorios
+node_modules/
+dist/
+coverage/
+
+# Archivos
+.env
+*.log
+*.pid
+.DS_Store
+
+# Archivos específicos de editores/IDEs
+.vscode/
+.idea/
