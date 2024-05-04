@@ -62,13 +62,6 @@ app.post('/posts', async (req,res) => {
     }
 })
 
-// PENDIENTES / MEJORAS
-// validar q todos los campos deben existir antes de hacer el post
-// que el texto se borre al postear
-// mensaje de posteado exitosamente para el user
-
-// PT 2 
-
 // PUT
 app.put('/posts/like/:id', async (req,res) => {
     try {
@@ -86,11 +79,11 @@ app.put('/posts/like/:id', async (req,res) => {
 })
 
 // DELETE
+// no funciona con el parámetro 'id', revisar.
 app.delete('/posts/:id', async(req,res) => {
     try {
         const query = 'DELETE FROM posts WHERE id = $1;'
         const id = req.params.id;
-        console.log(id)
         const values = [id];
         const result = await pool.query(query, values)
 

@@ -3,7 +3,6 @@ import { useEffect, useState } from "react";
 import Form from "./components/Form";
 import Post from "./components/Post";
 
-// front y back deben tener la misma ruta, deben coincidir los nros
 const urlBaseServer = "http://localhost:3000";
 
 function App() {
@@ -19,20 +18,29 @@ function App() {
 
   const agregarPost = async () => {
     const post = { titulo, url: imgSrc, descripcion };
-    await axios.post(urlBaseServer + "/posts", post);
-    getPosts();
+    if (titulo.length > 0 && imgSrc.length > 0 && descripcion.length > 0) {
+      await axios.post(urlBaseServer + "/posts", post);
+      getPosts();
+      alert('¡Tu post ha sido añadido!');
+      setTitulo("");
+      setImgSRC("");
+      setDescripcion("");
+    } else {
+      alert("Debes completar todos los campos.");
+    }
   };
 
-  // este método se utilizará en el siguiente desafío
   const like = async (id) => {
     await axios.put(urlBaseServer + `/posts/like/${id}`);
     getPosts();
   };
 
-  // este método se utilizará en el siguiente desafío
   const eliminarPost = async (id) => {
-    await axios.delete(urlBaseServer + `/posts/${id}`);
-    getPosts();
+    let text = "Vas a eliminar este post :(\n¿Deseas continuar?";
+    if (confirm(text) == true) {
+      await axios.delete(urlBaseServer + `/posts/${id}`);
+      getPosts();
+    }
   };
 
   useEffect(() => {
